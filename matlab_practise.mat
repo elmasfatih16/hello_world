@@ -1,0 +1,32 @@
+pal=2690;
+pwtr=1030;
+g=9.81;
+r0=0.6;
+ri=0.588;
+wsph=pal*(4/3)*pi*(r0^3-ri^3)*g;
+A=[1 -3*r0 0 4*r0^3];
+wwtr=A*pwtr*(1/3)*pi*g;
+B=[0 0 0 wsph];
+eqn=wwtr-B;
+h=roots(eqn);
+for i=1:3
+    if h(i)>0 && h(i)<1.2
+        disp(h(i))
+    end
+end
+% it must be 0.9029 because of the height must be smaller than 2*r=1.2 and bigger than 0.
+
+%Function M-File:
+function dy = dif1(x,y)
+dy=2*e^x+cos(x);
+end 
+%Script M-File:
+[x,yn]= ode23('dif1',[4 8],2);
+disp(x); 
+disp(yn);
+plot(x,yn,'--k')
+xlabel('x')
+ylabel('y=f(x)')
+grid
+
+
